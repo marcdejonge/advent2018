@@ -30,11 +30,6 @@ class Day3 : Day<Day3.Rect>(3, {
         }
     }
 
-    override fun part1(data: List<Rect>): Any {
-        return counters.values.filter { it.get() > 1 }.count()
-    }
-
-    override fun part2(data: List<Rect>): Any {
-        return data.first { it.counters.all { nr -> nr.get() == 1 } }.id
-    }
+    override fun part1(data: List<Rect>) = counters.values.filter { it.get() > 1 }.count()
+    override fun part2(data: List<Rect>) = data.first { it.counters.all { nr -> nr.get() == 1 } }.id
 }

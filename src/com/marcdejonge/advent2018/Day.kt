@@ -10,23 +10,24 @@ abstract class Day<T>(private val day: Int, mapper: (String) -> T) {
 
     abstract fun part2(data: List<T>): Any
 
+    fun <R> time(name: String, function: (List<T>) -> R): R {
+        val start = System.nanoTime()
+        val result = function(data)
+        val time = Math.round((System.nanoTime() - start) / 100000.0) / 10.0
+        println("$name took $time ms")
+        return result
+    }
+
     fun run() {
-        var start = System.nanoTime();
-        prepare(data)
-        val time0 = (System.nanoTime() - start) / 1000000.0
-        println("Preparing took $time0 ms")
-
-        start = System.nanoTime();
-        val result1 = part1(data)
-        val time1 = (System.nanoTime() - start) / 1000000.0
-        println("Day $day part 1: $result1")
-        println("Took $time1 ms")
-
-        start = System.nanoTime();
-        val result2 = part2(data)
-        val time2 = (System.nanoTime() - start) / 1000000.0
-        println("Day $day part 2: $result2")
-        println("Took $time2 ms")
+        println("=== Day $day ===")
+        time("Preparing", this::prepare)
+        println()
+        val result1 = time("Part 1", this::part1)
+        println("Result part 1: $result1")
+        println()
+        val result2 = time("Part 2", this::part2)
+        println("Result part 2: $result2")
+        println()
     }
 
     open fun prepare(data: List<T>) {}
