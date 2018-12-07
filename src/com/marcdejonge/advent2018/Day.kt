@@ -12,6 +12,11 @@ abstract class Day<T>(private val day: Int, mapper: (String) -> T) {
 
     fun run() {
         var start = System.nanoTime();
+        prepare(data)
+        val time0 = (System.nanoTime() - start) / 1000000.0
+        println("Preparing took $time0 ms")
+
+        start = System.nanoTime();
         val result1 = part1(data)
         val time1 = (System.nanoTime() - start) / 1000000.0
         println("Day $day part 1: $result1")
@@ -23,4 +28,6 @@ abstract class Day<T>(private val day: Int, mapper: (String) -> T) {
         println("Day $day part 2: $result2")
         println("Took $time2 ms")
     }
+
+    open fun prepare(data: List<T>) {}
 }
